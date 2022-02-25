@@ -1,6 +1,6 @@
 
 import { createContext, useEffect, useState } from "react";
-import { Cookies, useCookies } from "react-cookie";
+import {  useCookies } from "react-cookie";
 // export const ProfilContext = createContext({
 //     profil:{
 //         "user":{
@@ -23,9 +23,17 @@ const ProfilProvider = ({ children }) => {
                 method: 'post', 
                 credentials:'include'
             })
-            .then(response => response.json())
+            .then(response => {
+                if( response.status === 200){
+                    return response.json();
+                }
+                else{
+                    return "error";
+                }
+            
+                
+            })
             .then((jsonData) => {
-
                 console.log("réponse app update token ", jsonData);
                 //let result;
                 if (jsonData.user) {
@@ -39,19 +47,9 @@ const ProfilProvider = ({ children }) => {
                     }
                     setProfil(profil);
                 }
-                // const data = text.toJson();
-                // console.log("data",data);
-                // if(data.result){
-                    
-                //     //setAuth({role:data.role});
-                // }
-                // else{
-                //     document.cookie = `token=null;max-age=0`;
-                //     //setAuth({role:0})
-                // }
             }).catch(console.log);
         }
-    },[])
+    })
   
     return (
       <ProfilContext.Provider value={{profil, setProfil}}>
