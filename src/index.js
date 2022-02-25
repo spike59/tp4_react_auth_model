@@ -3,16 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
-import bscss from '../node_modules/bootstrap/dist/css/bootstrap.css';
-import bsjs from '../node_modules/bootstrap/dist/js/bootstrap.bundle';
+import { ProfilProvider } from './shared/profil_context';
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
+import '../node_modules/bootstrap/dist/js/bootstrap.bundle';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />    
-    </BrowserRouter>
-
+      <ProfilProvider>
+        <App />    
+      </ProfilProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
